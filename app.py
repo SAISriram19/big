@@ -64,9 +64,14 @@ with st.sidebar:
             if st.session_state.vector_store:
                 with st.spinner("Generating summary..."):
                     # Use first few chunks as a representative sample for summary
-                    summary_chunks = st.session_state.vector_store.chunks[:10]
+                    summary_chunks = st.session_state.vector_store.chunks
                     summary = st.session_state.qa_system.generate_summary(summary_chunks)
                     st.info(summary)
+
+        st.markdown("---")
+        st.header("Search Settings")
+        search_mode = st.radio("Search Mode", ["Vector", "Hybrid"], index=1)
+        st.session_state.search_mode = search_mode
 
     else:
         st.error(" Data Not Found!")
@@ -118,7 +123,10 @@ if st.session_state.loaded:
 
         with st.chat_message("assistant"):
             with st.spinner("Searching and generating answer..."):
-                search_results = st.session_state.vector_store.search(query, k=5)
+                if st.session_state.get('search_mode') == 'Hybrid':
+                    search_results = st.session_state.vector_store.hybrid_search(query, k=5)
+                else:
+                    search_results = st.session_state.vector_store.search(query, k=5)
 
                 result = st.session_state.qa_system.generate_answer_with_citations(
                     query, search_results

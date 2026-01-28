@@ -15,3 +15,6 @@ huggingface-hub
 pandas
 numpy
 pdfplumber
+rank_bm25
+matplotlib
+seaborn

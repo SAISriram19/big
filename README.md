@@ -28,6 +28,8 @@ This project implements a Retrieval-Augmented Generation (RAG) system capable of
 - **QA Bot**: Powered by LangChain and HuggingFace models.
 - **Source Attribution**: Page-level citations for all answers.
 - **Summarization**: One-click document briefing.
+- **Hybrid Search**: Combines BM25 keyword matching with semantic vector search for superior retrieval accuracy.
+- **System Evaluation**: Automated benchmarking of latency and relevance.
 
 ## Components
 

@@ -9,8 +9,9 @@ The system follows a standard Retrieval-Augmented Generation (RAG) architecture 
 - **Visual Extraction (OCR)**: Extracts images using `PyMuPDF` and processes them with `pytesseract` for OCR. (Note: Tesseract dependency required for full functionality).
 
 ### 2. Vector Store & Retrieval
-- **Embeddings**: Uses `sentence-transformers/all-MiniLM-L6-v2` to create a unified 384-dimensional embedding space for text, tables, and OCR results.
-- **Indexing**: Employs `FAISS` (Facebook AI Similarity Search) for efficient vector retrieval.
+- **Embeddings**: Uses `sentence-transformers/all-MiniLM-L6-v2` to create a unified 384-dimensional embedding space.
+- **Hybrid Search**: Implemented a hybrid retrieval system combining **BM25** (keyword-based) and **FAISS** (semantic-based). Results are combined using weighted score normalization, significantly improving retrieval for specific entity names and technical terms.
+- **Indexing**: Employs `FAISS` for efficient vector retrieval and `BM25Okapi` for keyword indexing.
 - **Metadata**: Each vector is tagged with source information (page number, type) to support source attribution.
 
 ### 3. Generation & QA
@@ -30,5 +31,5 @@ The system follows a standard Retrieval-Augmented Generation (RAG) architecture 
 
 ## Future Improvements
 - Implement **Cross-Modal Reranking** using models like CLIP.
-- Add **Hybrid Search** combining keyword (BM25) and vector search.
 - Integrate **Fine-tuned LLMs** on financial domains for better reasoning.
+- Add **Graph-based Retrieval** for complex relationship mapping within documents.
